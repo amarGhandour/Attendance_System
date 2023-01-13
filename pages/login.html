@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/login.js"></script>
+</head>
+<body>
+<div class="container">
+   <div class="w-25 mt-5 mx-auto">
+       <form action="http://localhost:63342/JSproject/index.html" method="post" class="form-login needs-validation" novalidate>
+           <div class=" mb-3">
+               <label for="Username" class="form-label">Username</label>
+               <input type="text" id="Username" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="username-addon" required>
+               <div class="invalid-feedback">
+                   username is required
+               </div>
+           </div>
+
+           <div class="mb-3">
+               <label for="Password" class="form-label">Password</label>
+               <input type="password" id="Password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon" required>
+               <div class="invalid-feedback">password is required</div>
+           </div>
+           <button class="btn btn-primary btn-lg w-100">Login</button>
+           <div class="alert alert-danger mt-2 d-none invalid-login">invalid username or password</div>
+       </form>
+   </div>
+</div>
+</body>
+</html>

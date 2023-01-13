@@ -1,0 +1,13 @@
+{
+  "users": [
+    { "id": 1, "Name": "Amar Ghandour", "username":  "Amar12345", "password": "iti345", "type": 0 },
+    { "id": 2, "Name": "Jhon DOe", "username":  "Jhon123456", "password": "iti345", "type": 1 },
+    { "id": 3, "Name": "mohamed DOe", "username":  "mohamed2345", "password": "iti345", "type": 2 }
+
+  ],
+  "attendances": [
+    { "id": 1, "userId": 1, "in": "09:32:35", "out": "02:23:34", "date": "1/11/2023"},
+    { "id": 2, "userId": 2, "in": "09:38:35", "out": "02:35:34", "date": "1/11/2023"},
+    { "id": 3, "userId": 3, "in": "09:05:35", "out": "03:45:34", "date": "1/11/2023"}
+  ]
+}
