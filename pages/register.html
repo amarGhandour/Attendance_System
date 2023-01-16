@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Login</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/register.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script defer src="../js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.4.0/dist/email.min.js"
+            type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init("BC6k4x7muRSn_SpaH"); //Insert your User ID
+        })();
+    </script>
+
+    <script defer src="../js/register.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="w-25 mt-3 mx-auto">
+        <form action="" class="form-register needs-validation" method="post" novalidate>
+            <div class=" mb-3">
+                <label class="form-label" for="FirstName">first name*</label>
+                <input aria-describedby="username-addon" aria-label="FirstName" class="form-control" id="FirstName" name="firstName"
+                       placeholder="FirstName" required type="text">
+                <div class="invalid-feedback">
+                    first name must at least 4 characters.
+                </div>
+            </div>
+
+            <div class=" mb-3">
+                <label class="form-label" for="LastName">last name*</label>
+                <input aria-describedby="username-addon" aria-label="LastName" class="form-control" id="LastName" name="lastName"
+                       placeholder="LastName" required type="text">
+                <div class="invalid-feedback">
+                    last name must at least 4 characters.
+                </div>
+            </div>
+
+            <div class=" mb-3">
+                <label class="form-label" for="Address">address</label>
+                <input aria-describedby="address-addon" aria-label="Address" class="form-control" id="Address" name="address"
+                       placeholder="Address" type="text">
+            </div>
+
+
+            <div class=" mb-3">
+                <label class="form-label" for="Email">Email*</label>
+                <input aria-describedby="email-addon" aria-label="Email" class="form-control" id="Email" name="email" placeholder="Email"
+                       required type="text">
+                <div class="invalid-feedback">
+                    email is invalid
+                </div>
+            </div>
+
+            <div class=" mb-3">
+                <label class="form-label" for="Age">age*</label>
+                <input aria-describedby="username-addon" aria-label="Age" class="form-control" id="Age" name="age" placeholder="Age"
+                       required type="number">
+                <div class="invalid-feedback">
+                    age must between 17 and 59
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-lg w-100">Register</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
