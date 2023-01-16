@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Attendance</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/attendacne.js"></script>
+
+</head>
+<body>
+<div class="`container">
+    <div class="w-25 mt-5 mx-auto">
+        <form action="" class="form-attendance needs-validation" method="post" novalidate>
+            <div class=" mb-3">
+                <label class="form-label" for="Username">Username</label>
+                <input aria-describedby="username-addon" aria-label="Username" class="form-control" id="Username"
+                       name="username"
+                       placeholder="Username" required type="text">
+                <div class="invalid-feedback">
+                    username is required
+                </div>
+            </div>
+            <button class="btn btn-primary btn-lg w-100" type="submit">Confirm</button>
+            <div class="alert alert-danger mt-2 d-none invalid-username">invalid username</div>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>
