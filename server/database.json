@@ -31,7 +31,7 @@
       "password": "iti345",
       "type": 2,
       "age": 33,
-      "verified": true
+      "verified": false
     },
     {
       "firstName": "Amar",
@@ -41,7 +41,7 @@
       "age": "45",
       "username": "6owQDGrw",
       "password": "iti43",
-      "verified": true,
+      "verified": false,
       "type": 3,
       "id": 4
     },
@@ -61,22 +61,22 @@
   "attendances": [
     {
       "id": 2,
-      "userId": 2,
-      "in": "09:38:35",
-      "out": "02:35:34",
-      "date": "1-11-2023"
+      "userId": 1,
+      "in": 1673848421817,
+      "out": 1673848703662,
+      "date": "2023-01-20"
     },
     {
       "id": 3,
       "userId": 1,
-      "in": "09:05:35",
-      "out": "03:45:34",
-      "date": "16-2-2023"
+      "in": 1673848421817,
+      "out": 1693848703662,
+      "date": "2023-01-18"
     },
     {
       "in": 1673848421817,
       "out": 1673848703662,
-      "date": "16-1-2023",
+      "date": "2023-01-16",
       "userId": 1,
       "id": 4
     }

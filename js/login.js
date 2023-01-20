@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const formUsernameElm = document.getElementById('Username');
         const formPassElm = document.getElementById('Password');
 
-        console.log(formUsernameElm)
         // submit fields and check authentication
         fetch(`http://localhost:3000/users?username=${formUsernameElm.value}&password=${formPassElm.value}`)
             .then((res)=> res.json())
@@ -37,8 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.length === 1 && data[0].username === formUsernameElm.value && data[0].password === formPassElm.value){
                     localStorage.setItem("user", JSON.stringify(data[0]));
                     formLoginElm.submit();
-                }else{
-                    document.querySelector('.invalid-login').classList.remove('d-none');
+                    console.log(data)
+                }else {
+                    console.log(document.querySelector('.invaliddd-login'))
+                    document.querySelector('.invaliddd-login').classList.remove('d-none');
                 }
             });
     });
