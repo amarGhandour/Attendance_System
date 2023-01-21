@@ -1,9 +1,10 @@
+const domain = "http://localhost:3000";
+
 function msToTime(milli) {
     let time = new Date(milli);
     let hours = time.getUTCHours();
     let minutes = time.getUTCMinutes();
     let seconds = time.getUTCSeconds();
-    let milliseconds = time.getUTCMilliseconds();
     return hours + ":" + minutes + ":" + seconds;
 }
 
@@ -41,6 +42,26 @@ function formatDate(date) {
         day = '0' + day;
 
     return [year, month, day].join('-');
+}
+
+
+function isExcuse(time) {
+    let outTime = new Date(0, 0, 0, 15, 30, 0);
+
+    return time < outTime.getTime();
+}
+
+function isLate(time) {
+    let inTime = new Date(0, 0, 0, 8, 30, 0);
+
+    return time > inTime.getTime();
+}
+
+function isAbsence(time) {
+
+    let acceptTime = new Date(0, 0, 0, 9, 0, 0);
+
+    return time > acceptTime.getTime();
 }
 
 function createRow(user) {
@@ -100,7 +121,6 @@ function createDailyAdminRow(user) {
     let attendToday = user.attendances.find((attend) => {
         return attend.date === searchedDate
     });
-    console.log(attendToday)
     if (attendToday) {
         let trElm = document.createElement('tr');
         let lateTime = getLateTime(msToTime(attendToday.in), msToTime(attendToday.out));
@@ -115,6 +135,63 @@ function createDailyAdminRow(user) {
                 </tr>`
         document.getElementById('daily-admin-id').children[1].appendChild(trElm);
     }
+}
+
+async function getRangeDataTable(fromDate, toDate) {
+    const usersMap = new Map();
+    let usersAttendances = await fetch(`${domain}/attendances?_expand=user&date_lte=${toDate}&date_gte=${fromDate}`);
+
+    // let usersAttendances = await fetch(`${domain}/attendances?_expand=user&date_lte=2023-01-17&date_gte=2023-01-16`);
+    usersAttendances = await usersAttendances.json();
+
+    usersAttendances.forEach((item) => {
+        if (usersMap.has(item.userId)) {
+            let userAttend = usersMap.get(item.userId);
+
+            if (isAbsence(item.in))
+                userAttend.absence++
+            else {
+                userAttend.attend++;
+                if (isLate(item.in))
+                    userAttend.late++;
+                if (isExcuse(item.out))
+                    userAttend.excuse++;
+            }
+        } else {
+            let newRow = {
+                late: 0,
+                absence: 0,
+                attend: 0,
+                excuse: 0,
+                name: `${item.user.firstName} ${item.user.lastName}`
+            };
+
+
+            if (isAbsence(item.in))
+                newRow.absence++
+            else {
+                newRow.attend++;
+                if (isLate(item.in))
+                    newRow.late++;
+                if (isExcuse(item.out))
+                    newRow.excuse++;
+            }
+            usersMap.set(item.userId, newRow);
+        }
+    });
+    return usersMap;
+}
+
+function createRangeAdminRow(row) {
+    let trElm = document.createElement('tr');
+        trElm.innerHTML =
+                    `<td>${row.name}</td>
+                    <td>${row.attend}</td>
+                    <td>${row.late}</td>
+                    <td>${row.excuse}</td>
+                    <td>${row.absence}</td>`
+
+        document.getElementById('range-admin-table').children[1].appendChild(trElm);
 }
 
 
@@ -135,7 +212,6 @@ function createDailyReport() {
     fetch(`${domain}/users?_embed=attendances&verified=true`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
             if (arguments.length === 1) {
                 $("#daily-admin-id").DataTable().clear().destroy();
 
@@ -158,8 +234,6 @@ function createDailyReport() {
 }
 
 
-const domain = "http://localhost:3000";
-
 document.addEventListener('DOMContentLoaded', function () {
 
     //All Employees
@@ -179,18 +253,34 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("attendanceDate").addEventListener('change', function (e) {
         createDailyReport(e.target.value);
     });
-    //range Employees Report
-    fetch(`${domain}/users?_embed=attendances&verified=true`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-            data.forEach((row) => {
-                createDailyAdminRow(row);
-            });
-            $("#range-admin-id").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        });
 
-    // $("#monthly-report").DataTable().draw();
-})
+    // range admin report
+    getRangeDataTable("2023-01-15", "2023-01-21").then((data) => {
+        data.forEach((row) => {
+            createRangeAdminRow(row);
+        });
+        $("#range-admin-table").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+
+
+    let fromDateElm = document.getElementById("fromDate");
+    fromDateElm.addEventListener("change", createAdminRangeTable);
+
+    let toDateElm = document.getElementById("toDate");
+    toDateElm.addEventListener("change", createAdminRangeTable);
+    function createAdminRangeTable(){
+        if (fromDateElm.value != '' && toDateElm.value != ''){
+            getRangeDataTable(fromDateElm.value, toDateElm.value).then((data) => {
+                $("#range-admin-table").DataTable().clear().destroy();
+                data.forEach((row) => {
+                    createRangeAdminRow(row);
+                });
+                $("#range-admin-table").DataTable({
+                    "responsive": true, "lengthChange": false, "autoWidth": false,
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
+        }
+    }
+});
