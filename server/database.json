@@ -37,18 +37,6 @@
       "firstName": "Amar",
       "lastName": "Elghandour",
       "address": "",
-      "email": "amarghandour89@gmail.com",
-      "age": "45",
-      "username": "6owQDGrw",
-      "password": "iti43",
-      "verified": false,
-      "type": 3,
-      "id": 4
-    },
-    {
-      "firstName": "Amar",
-      "lastName": "Elghandour",
-      "address": "",
       "email": "ammarelghandour61@gmail.com",
       "age": "34",
       "username": "3Vi2kVPJ",
@@ -60,39 +48,39 @@
   ],
   "attendances": [
     {
+      "id": 1,
+      "userId": 1,
+      "in": 1672558410000,
+      "out": 1672580010000,
+      "date": "2023-01-01"
+    },
+    {
       "id": 2,
       "userId": 1,
-      "in": 1673848421817,
-      "out": 1673848703662,
-      "date": "2023-01-20"
+      "in": 1672640130000,
+      "out": 1672665330000,
+      "date": "2023-01-02"
     },
     {
       "id": 3,
       "userId": 1,
-      "in": 1673848421817,
-      "out": 1693848703662,
-      "date": "2023-01-18"
+      "in": 1672727370000,
+      "out": 1672748970000,
+      "date": "2023-01-03"
     },
     {
-      "in": 1673848421817,
-      "out": 1693840603662,
-      "date": "2023-01-16",
+      "id": 4,
       "userId": 1,
-      "id": 4
+      "in": 1672813830000,
+      "out": 1672839270000,
+      "date": "2023-01-04"
     },
     {
-      "in": 1673848421817,
-      "out": 1693840603662,
-      "date": "2023-01-18",
-      "userId": 2,
-      "id": 4
-    },
-    {
-      "in": 1673848421817,
-      "out": 1693840603662,
-      "date": "2023-01-21",
-      "userId": 2,
-      "id": 4
+      "id": 5,
+      "userId": 1,
+      "in": 1672900770000,
+      "out": 1672925970000,
+      "date": "2023-01-05"
     }
   ]
 }
