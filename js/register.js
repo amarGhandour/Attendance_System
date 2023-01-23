@@ -90,7 +90,6 @@ registerFormElm.addEventListener('submit', function (e) {
                 formData.forEach(function (value, key) {
                     object[key] = value;
                 });
-
                 // create random username
                 fetch('https://api.api-ninjas.com/v1/passwordgenerator?length=8', {
                     method: "GET",

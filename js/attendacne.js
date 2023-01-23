@@ -1,6 +1,23 @@
 import {formatDate} from "./modules/util.js";
+import {setAbsentForAllUsersNotAttend, setLeaveTimeForUsers} from "./modules/attendanceService.js";
 
 const domain = "http://localhost:3000";
+
+setInterval(function(){
+    const date = new Date();
+    if(date.getHours() === 19 && date.getMinutes() === 50){
+
+        // setLeaveTimeForUsers().then((res) => {
+        //     $.toastr.success("All users set out");
+        // });
+        setTimeout(()=> {
+            setAbsentForAllUsersNotAttend().then((res) => {
+                $.toastr.success("users set absent");
+            });
+        }, 1000)
+
+    }
+}, 60000);
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -87,8 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
     });
-
-
 });
 
 

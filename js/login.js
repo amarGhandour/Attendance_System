@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.length === 1 && data[0].username === formUsernameElm.value && data[0].password === formPassElm.value){
                     localStorage.setItem("user", JSON.stringify({
                         id: data[0].id,
-                        verify: data[0].verify,
+                        verify: data[0].verified,
                         type: data[0].type
                     }));
                     $.toastr.success(`Welcome ${data[0].firstName}`, {

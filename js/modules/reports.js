@@ -20,6 +20,9 @@ function isExcuse(time) {
 
 function isAbsence(time) {
 
+    if (time === 0)
+        return true;
+
     let lateTime = calculateDiffTime("8:30:00", msToTime(time));
     let latTimeArr = lateTime.split(":");
 
