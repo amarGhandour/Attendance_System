@@ -1,6 +1,9 @@
+import {formatDate} from "./modules/util.js";
+
 const domain = "http://localhost:3000";
 
 document.addEventListener('DOMContentLoaded', function () {
+
     (() => {
         'use strict'
 
@@ -30,15 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formUsernameElm = document.getElementById('Username');
 
-        fetch(`http://localhost:3000/users?username=${formUsernameElm.value}`)
+        fetch(`http://localhost:3000/users?username=${formUsernameElm.value}&verified=true`)
             .then((res) => res.json())
             .then((data) => {
                 if (data.length === 1 && data[0].username === formUsernameElm.value) {
+
                     let date = new Date();
-                    let today = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+                    let today = formatDate();
                     let userId = data[0].id;
-                    // console.log(today)
-                    // console.log(data[0].id);
+
                     fetch(`${domain}/users/${userId}/attendances?date=${today}`)
                         .then((res) => res.json())
                         .then((data) => {
@@ -54,8 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                     return res.json();
                                 })
                                     .then((data) => {
-                                        console.log("departure confirmed!")
-                                        console.log(data)
+                                        $.toastr.success('Leave time confirmed', {
+                                            position: 'right-bottom'
+                                        });
                                     })
                             } else {
                                 let postBody = {in: new Date().getTime(), out: 0, date: today}
@@ -69,13 +73,17 @@ document.addEventListener('DOMContentLoaded', function () {
                                     return res.json();
                                 })
                                     .then((data) => {
-                                        console.log("attendance confirmed!")
-                                        console.log(data)
+                                        $.toastr.success('In time confirmed', {
+                                            position: 'right-bottom',
+                                            size: 'lg'
+                                        });
                                     })
                             }
                         })
                 } else {
-                    document.querySelector('.invalid-username').classList.remove('d-none');
+                    $.toastr.error('Invalid username', {
+                        position: 'right-bottom'
+                    });
                 }
             });
     });

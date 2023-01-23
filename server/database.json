@@ -23,16 +23,52 @@
       "verified": false
     },
     {
-      "firstName": "Amar",
-      "lastName": "Elghandour",
+      "firstName": "mohamed",
+      "lastName": "ahmed",
       "address": "",
       "email": "ammarelghandour61@gmail.com",
       "age": "34",
       "username": "3Vi2kVPJ",
       "password": "iti43",
       "verified": true,
-      "type": 3,
+      "type": 2,
       "id": 5
+    },
+    {
+      "firstName": "Amar",
+      "lastName": "Elghandour",
+      "address": "",
+      "email": "amarghan3dour89@gmail.com",
+      "age": "34",
+      "username": "Tok2Kfy3",
+      "password": "iti43",
+      "verified": false,
+      "type": 2,
+      "id": 6
+    },
+    {
+      "firstName": "Amar",
+      "lastName": "Elghandour",
+      "address": "",
+      "email": "amarghadn3dour89@gmail.com",
+      "age": "34",
+      "username": "*9tgZX0^",
+      "password": "iti43",
+      "verified": false,
+      "type": 2,
+      "id": 7
+    },
+    {
+      "firstName": "Amar",
+      "lastName": "Elghandour",
+      "address": "",
+      "email": "amarghadndd3dour89@gmail.com",
+      "age": "32",
+      "username": "izQw^Bz!",
+      "password": "iti43",
+      "verified": false,
+      "type": 2,
+      "id": 8
     }
   ],
   "attendances": [
@@ -70,6 +106,20 @@
       "in": 1672900770000,
       "out": 1672925970000,
       "date": "2023-01-05"
+    },
+    {
+      "in": 1674484373691,
+      "out": 1674484851861,
+      "date": "2023-01-23",
+      "userId": 1,
+      "id": 6
+    },
+    {
+      "in": 1674484612216,
+      "out": 1674484662294,
+      "date": "2023-01-23",
+      "userId": "5",
+      "id": 8
     }
   ]
 }

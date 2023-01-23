@@ -6,11 +6,13 @@
 //
 // document.querySelector('#Email').addEventListener('blur', validateEmail);
 // document.querySelector('#Email').addEventListener('keyup', validateEmail);
+const domain = "http://localhost:3000";
 
-function sendEmail(_username, _password) {
+function sendEmail(_username, _password, toEmail) {
     let templateParams = {
         username: _username,
-        password: _password
+        password: _password,
+        email_to: toEmail
     };
     emailjs.send('service_tnqlnh6', 'template_3b8e5pg', templateParams)
         .then(function (response) {
@@ -18,10 +20,8 @@ function sendEmail(_username, _password) {
         }, function (error) {
             console.log('FAILED...', error);
         });
-
 }
 
-const domain = "http://localhost:3000";
 
 const registerFormElm = document.querySelector('.form-register');
 
@@ -91,14 +91,13 @@ registerFormElm.addEventListener('submit', function (e) {
                     object[key] = value;
                 });
 
-                // create random password and username
+                // create random username
                 fetch('https://api.api-ninjas.com/v1/passwordgenerator?length=8', {
                     method: "GET",
                     headers: {'X-Api-Key': 'M+0QmqdJqLpx1vwhwuPQ7g==4p6mSBME34oNYBT3'},
                     contentType: 'application/json',
                 })
                     .then((res) => {
-                        console.log(res)
                         return res.json();
                     })
                     .then((data) => {
@@ -106,7 +105,7 @@ registerFormElm.addEventListener('submit', function (e) {
                         console.log(data)
                         object['password'] = "iti43";
                         object['verified'] = false;
-                        object['type'] = 3;
+                        object['type'] = 2;
 
                         // make a post request by ajax to create a user
                         const json = JSON.stringify(object);
@@ -119,17 +118,23 @@ registerFormElm.addEventListener('submit', function (e) {
                             body: json
                         }).then((res) => {
                             return res.json();
-                        }).then((data) => {
-                            console.log(data)
+                        }).then((user) => {
                             // send email to user contain his username and password
-                            sendEmail(data.username, data.password);
+                            sendEmail(user.username, user.password, user.email);
+
+                            $.toastr.info('Please check your Email', {
+                                position: 'right-bottom'
+                            });
+                            setTimeout(()=> {
+                                location.replace("./../pages/login.html")
+                            }, 2000);
                             // redirect user to home page. // home page contain button to show daily report and monthly.
                         }).catch((res) => {
                             console.log(res);
-                            console.log('unexpected error occur. redirit to try again page')
+                            console.log('unexpected error occur.  try again')
                         })
                     }).catch((res) => {
-                    console.log("unexpected error faild generate password redirect to try again page");
+                    console.log("unexpected error faild generate password try again");
                 });
 
             }

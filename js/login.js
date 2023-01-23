@@ -34,18 +34,22 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((res)=> res.json())
             .then((data)=> {
                 if (data.length === 1 && data[0].username === formUsernameElm.value && data[0].password === formPassElm.value){
-                    localStorage.setItem("user", JSON.stringify(data[0]));
-                    formLoginElm.submit();
-                    console.log(data)
+                    localStorage.setItem("user", JSON.stringify({
+                        id: data[0].id,
+                        verify: data[0].verify,
+                        type: data[0].type
+                    }));
+                    $.toastr.success(`Welcome ${data[0].firstName}`, {
+                        position: 'right-bottom'
+                    });
+
                 }else {
-                    console.log(document.querySelector('.invaliddd-login'))
-                    document.querySelector('.invaliddd-login').classList.remove('d-none');
+                    $.toastr.error('Invalid username or password', {
+                        position: 'right-bottom'
+                    });
                 }
             });
     });
-
-
-
 });
 
 
