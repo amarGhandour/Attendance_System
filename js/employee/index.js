@@ -1,8 +1,8 @@
 import {
-    createDailyEmployeeRow, createRangeEmployeeRow,
+    createDailyReportRow, createRangeEmployeeRow,
     getDailyReportDataForAUser,
     getRangeReportDataForAUser
-} from "../modules/dailyReport.js";
+} from "../modules/reports.js";
 document.addEventListener('DOMContentLoaded', function (){
 
     // employee daily report
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function (){
             .then((data) => {
                 $("#daily-employee-id").DataTable().clear().destroy();
                 if (data){
-                    createDailyEmployeeRow(data);
+                    createDailyReportRow(data, "daily-employee-id");
                 }
                 $("#daily-employee-id").DataTable({
                     "responsive": true, "lengthChange": false, "autoWidth": false,

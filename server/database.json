@@ -20,17 +20,6 @@
       "password": "iti345",
       "type": 1,
       "age": 23,
-      "verified": true
-    },
-    {
-      "id": 3,
-      "firstName": "mohamed",
-      "lastName": "Doe",
-      "email": "mohamed@gmail.com",
-      "username": "mohamed2345",
-      "password": "iti345",
-      "type": 2,
-      "age": 33,
       "verified": false
     },
     {

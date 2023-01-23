@@ -1,5 +1,8 @@
 import {calculateDiffTime, msToTime} from "./util.js";
 import {getAttendancesForAUser, getRangeAttendancesForAUser} from "./userService.js";
+import {getADayAttendanceForAllUsers, getRangeAttendancesForAllUsers} from "./attendanceService.js";
+
+const domain = "http://localhost:3000";
 
 function isLate(time) {
     let lateTime = calculateDiffTime("8:30:00", msToTime(time));
@@ -39,7 +42,7 @@ async function getDailyReportDataForAUser(userId, date) {
     };
 }
 
-function createDailyEmployeeRow(rowData) {
+function createDailyReportRow(rowData, tableId) {
     let trElm = document.createElement('tr');
 
     trElm.innerHTML = `
@@ -51,7 +54,7 @@ function createDailyEmployeeRow(rowData) {
                     <td>${rowData.excuse ? "YES" : "NO"}</td>
                     <td>${rowData.absent ? "YES" : "NO"}</td>
                 `
-    document.getElementById('daily-employee-id').children[1].appendChild(trElm);
+    document.getElementById(tableId).children[1].appendChild(trElm);
 
 }
 
@@ -96,4 +99,92 @@ function createRangeEmployeeRow(rowData) {
 }
 
 
-export {getDailyReportDataForAUser, createDailyEmployeeRow, getRangeReportDataForAUser, createRangeEmployeeRow}
+ async function getAdminRangeReportData(fromDate, toDate) {
+    let usersAttendances = await getRangeAttendancesForAllUsers(fromDate, toDate);
+
+     const usersMap = new Map();
+
+     usersAttendances.forEach((item) => {
+        if (usersMap.has(item.userId)) {
+            let userAttend = usersMap.get(item.userId);
+
+            if (isAbsence(item.in))
+                userAttend.absence++
+            else {
+                userAttend.attend++;
+                if (isLate(item.in))
+                    userAttend.late++;
+                if (isExcuse(item.out))
+                    userAttend.excuse++;
+            }
+        } else {
+            let newRow = {
+                late: 0,
+                absence: 0,
+                attend: 0,
+                excuse: 0,
+                name: `${item.user.firstName} ${item.user.lastName}`
+            };
+
+
+            if (isAbsence(item.in))
+                newRow.absence++
+            else {
+                newRow.attend++;
+                if (isLate(item.in))
+                    newRow.late++;
+                if (isExcuse(item.out))
+                    newRow.excuse++;
+            }
+            usersMap.set(item.userId, newRow);
+        }
+    });
+    return usersMap;
+}
+
+function createRangeAdminRow(rowData) {
+    let trElm = document.createElement('tr');
+    trElm.innerHTML =
+        `<td>${rowData.name}</td>
+                    <td>${rowData.attend}</td>
+                    <td>${rowData.late}</td>
+                    <td>${rowData.excuse}</td>
+                    <td>${rowData.absence}</td>`
+
+    document.getElementById('range-admin-table').children[1].appendChild(trElm);
+}
+
+async function getAdminDailyReportData(date) {
+    let attendances = await getADayAttendanceForAllUsers(date)
+
+    if (!attendances.length)
+        return null;
+    let dailyData = [];
+
+    attendances.forEach((attend) => {
+        const item =  {
+            name: `${attend.user.firstName} ${attend.user.lastName}`,
+            date: attend.date,
+            late: calculateDiffTime("8:30:00", msToTime(attend.in)),
+            in: msToTime(attend.in),
+            out: msToTime(attend.out),
+            absent: isAbsence((attend.in)),
+            excuse: isExcuse(attend.out)
+        };
+        dailyData.push(item);
+    })
+
+    return dailyData;
+
+}
+
+
+export {
+    getDailyReportDataForAUser,
+    createDailyReportRow,
+    getRangeReportDataForAUser,
+    createRangeEmployeeRow,
+    getAdminRangeReportData,
+    createRangeAdminRow,
+    getAdminDailyReportData
+}
