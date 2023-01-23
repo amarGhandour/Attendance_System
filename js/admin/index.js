@@ -84,7 +84,6 @@ function createRangeAdminRow(row) {
         document.getElementById('range-admin-table').children[1].appendChild(trElm);
 }
 
-
 function deleteUser(e) {
     if (confirm("Are you sure")) {
         fetch(`${domain}/users/${e.target.getAttribute('data-user-id')}`, {
@@ -155,7 +154,6 @@ document.addEventListener('DOMContentLoaded', function () {
             "responsive": true, "lengthChange": false, "autoWidth": false,
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
-
 
     let fromDateElm = document.getElementById("fromDate");
     fromDateElm.addEventListener("change", createAdminRangeTable);
