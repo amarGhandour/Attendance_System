@@ -12,4 +12,13 @@ async function getAttendancesForAUser(userId, date = null) {
     return await userAttendancesJson.json();
 }
 
-export {getAttendancesForAUser};
+
+async function getRangeAttendancesForAUser(userId, startDate, endDate ) {
+
+    let url = `${domain}/users/${userId}/attendances?_expand=user&date_gte=${startDate}&date_lte=${endDate}`;
+
+    let userAttendancesJson = await fetch(url);
+    return await userAttendancesJson.json();
+}
+
+export {getAttendancesForAUser, getRangeAttendancesForAUser};

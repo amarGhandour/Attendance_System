@@ -1,5 +1,5 @@
 import {calculateDiffTime, msToTime} from "./util.js";
-import {getAttendancesForAUser} from "./userService.js";
+import {getAttendancesForAUser, getRangeAttendancesForAUser} from "./userService.js";
 
 function isLate(time) {
     let lateTime = calculateDiffTime("8:30:00", msToTime(time));
@@ -31,9 +31,9 @@ async function getDailyReportDataForAUser(userId, date) {
     return {
         name: `${attendances[0].user.firstName} ${attendances[0].user.lastName}`,
         date: attendances[0].date,
-        late: calculateDiffTime("8:30:00",msToTime(attendances[0].in)),
+        late: calculateDiffTime("8:30:00", msToTime(attendances[0].in)),
         in: msToTime(attendances[0].in),
-        out: msToTime(attendances[0].in),
+        out: msToTime(attendances[0].out),
         absent: isAbsence((attendances[0].in)),
         excuse: isExcuse(attendances[0].out)
     };
@@ -48,11 +48,52 @@ function createDailyEmployeeRow(rowData) {
                     <td>${rowData.in}</td>
                     <td>${rowData.out}</td>
                     <td>${rowData.late}</td>
-                    <td>${rowData.excuse? "YES" : "NO" }</td>
-                    <td>${rowData.absent? "YES" : "NO" }</td>
+                    <td>${rowData.excuse ? "YES" : "NO"}</td>
+                    <td>${rowData.absent ? "YES" : "NO"}</td>
                 `
     document.getElementById('daily-employee-id').children[1].appendChild(trElm);
 
 }
 
-export {getDailyReportDataForAUser, createDailyEmployeeRow}
+async function getRangeReportDataForAUser(userId, startDate, endDate) {
+    let attendances = await getRangeAttendancesForAUser(userId, startDate, endDate);
+
+    if (!attendances.length)
+        return null;
+    const rangeData = {
+        name: `${attendances[0].user.firstName} ${attendances[0].user.lastName}`,
+        late: 0,
+        absent: 0,
+        excuse: 0,
+        attend: 0
+    };
+
+    attendances.forEach((day) => {
+        if (isAbsence(day.in))
+            rangeData.absent++
+        else {
+            rangeData.attend++;
+            if (isLate(day.in))
+                rangeData.late++;
+            if (isExcuse(day.out))
+                rangeData.excuse++;
+        }
+    });
+
+    return rangeData;
+}
+
+function createRangeEmployeeRow(rowData) {
+    let trElm = document.createElement('tr');
+    trElm.innerHTML =
+        `<td>${rowData.name}</td>
+                    <td>${rowData.attend}</td>
+                    <td>${rowData.late}</td>
+                    <td>${rowData.excuse}</td>
+                    <td>${rowData.absent}</td>`
+
+    document.getElementById('range-employee-table').children[1].appendChild(trElm);
+}
+
+
+export {getDailyReportDataForAUser, createDailyEmployeeRow, getRangeReportDataForAUser, createRangeEmployeeRow}
