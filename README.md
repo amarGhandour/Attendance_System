@@ -31,23 +31,27 @@
    - Attendance Page
 
 3. Implement the frontend code to make it work with the following functionalities:
-   - [ ] new employees must register his / her data to be able to login next time
+   - [ ] new employees must register his / her data to be able to log in next time.
    - [ ] no Registration Allowed for duplicate emails.
    - [ ] After registration, an e-mail will be sent to employee email. holding a
-     unique username (Random Code) and a password (search for how to send
-     Email using js). The employee can log in the system using those two fields
-     after admin confirmation.
-   - [ ] The Attendance page will be viewed to the employee who is responsible for
-     the attendance system. 
-    ![attendance.PNG](images%2Fattendance.PNG)
+     unique username (Random Code) and a password (search for how to send Email using js). The employee can log in the system using those two fields after admin confirmation.
+   - [ ] The Attendance page will be viewed to the employee who is responsible for the attendance system.
+        <p align="center">
+          <img  src="./images/attendance.PNG">
+        </p>  
    - [ ] If the same username entered another time, the system will register
      departure for employee not attendance again.
    - [ ] If the employee attended, he can register departure any time he wants or
      the system will register departure for his / her after 7 working hours started
      from 8:30 Am to 3:30PM.
    - [ ] The Employee Can Show the following reports: Daily and monthly reports. You can any other reports for employee Role
-   ![emp_report.PNG](images%2Femp_report.PNG)
+     <p align="center">
+         <img  src="./images/emp_report.PNG">
+     </p>  
    - [ ] Admin Reports: All employees, full report, Excuse report, late report, and employee brief.
-![admin_report.PNG](images%2Fadmin_report.PNG)
+
+     <p align="center">
+        <img  src="./images/admin_report.PNG">
+     </p>
 5. Feel free to enhance the APIs to suit your needs if needed.
 6. Try to use JQ Dashboard Widget to display Admin Reports (example: https://www.bootstrapdash.com/jquery-dashboard-example/ )
