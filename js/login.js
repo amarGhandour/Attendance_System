@@ -1,3 +1,5 @@
+import {checkIsApproved} from "./modules/auth.js";
+
 document.addEventListener('DOMContentLoaded', function () {
     (() => {
         'use strict'
@@ -19,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })();
 
     const formLoginElm = document.querySelector(".form-login");
-    formLoginElm.addEventListener('submit', function (e){
+    formLoginElm.addEventListener('submit', function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -31,19 +33,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // submit fields and check authentication
         fetch(`http://localhost:3000/users?username=${formUsernameElm.value}&password=${formPassElm.value}`)
-            .then((res)=> res.json())
-            .then((data)=> {
-                if (data.length === 1 && data[0].username === formUsernameElm.value && data[0].password === formPassElm.value){
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.length === 1 && data[0].username === formUsernameElm.value && data[0].password === formPassElm.value) {
                     localStorage.setItem("user", JSON.stringify({
                         id: data[0].id,
                         verify: data[0].verified,
                         type: data[0].type
                     }));
-                    $.toastr.success(`Welcome ${data[0].firstName}`, {
-                        position: 'right-bottom'
-                    });
 
-                }else {
+                    if (!checkIsApproved()){
+                        $.toastr.info("Please wait for admin accept.", {
+                            position: 'right-bottom'
+                        });
+                    } else {
+                        $.toastr.success(`Welcome ${data[0].firstName}`, {
+                            position: 'right-bottom'
+                        });
+
+                        setTimeout(() => {
+                            switch (data[0].type) {
+                                case 0:
+                                    location.replace("./../pages/admin/index.html");
+                                    break;
+                                case 1:
+                                    location.replace("./../pages/security/take_attendance.html");
+                                    break;
+                                case 2:
+                                    location.replace("./../pages/employee/index.html");
+                                    break;
+                            }
+                        }, 200);
+                    }
+
+                } else {
                     $.toastr.error('Invalid username or password', {
                         position: 'right-bottom'
                     });

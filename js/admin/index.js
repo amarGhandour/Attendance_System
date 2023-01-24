@@ -4,9 +4,20 @@ import {
     getAdminRangeReportData,
 } from "../modules/reports.js";
 import {createPendingRow, getPendingEmployeeData} from "../modules/employeesTables.js";
+import {checkIsAdmin, checkIsLogin} from "../modules/auth.js";
 
 
 document.addEventListener('DOMContentLoaded', function () {
+
+    if (!checkIsLogin()){
+        location.replace("./../login.html");
+    }
+
+    if (!checkIsAdmin()){
+        $.toastr.error("UnAuthorized");
+        location.replace("./../login.html");
+    }
+
     //All pending employees table
     getPendingEmployeeData()
         .then((data) => {

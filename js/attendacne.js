@@ -1,5 +1,6 @@
 import {formatDate} from "./modules/util.js";
 import {setAbsentForAllUsersNotAttend, setLeaveTimeForUsers} from "./modules/attendanceService.js";
+import {checkIsAdmin, checkIsApproved, checkIsLogin, checkIsSecurity} from "./modules/auth.js";
 
 const domain = "http://localhost:3000";
 
@@ -7,9 +8,9 @@ setInterval(function(){
     const date = new Date();
     if(date.getHours() === 19 && date.getMinutes() === 50){
 
-        // setLeaveTimeForUsers().then((res) => {
-        //     $.toastr.success("All users set out");
-        // });
+        setLeaveTimeForUsers().then((res) => {
+            $.toastr.success("All users set out");
+        });
         setTimeout(()=> {
             setAbsentForAllUsersNotAttend().then((res) => {
                 $.toastr.success("users set absent");
@@ -20,6 +21,16 @@ setInterval(function(){
 }, 60000);
 
 document.addEventListener('DOMContentLoaded', function () {
+    if (!checkIsLogin()){
+        location.replace("./../login.html");
+        return;
+    }
+
+    if (!checkIsAdmin() && !checkIsSecurity()){
+        $.toastr.error("UnAuthorized");
+        location.replace("./../login.html");
+        return;
+    }
 
     (() => {
         'use strict'

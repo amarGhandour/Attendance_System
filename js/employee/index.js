@@ -3,7 +3,20 @@ import {
     getDailyReportDataForAUser,
     getRangeReportDataForAUser
 } from "../modules/reports.js";
+import {checkIsApproved, checkIsLogin} from "../modules/auth";
 document.addEventListener('DOMContentLoaded', function (){
+
+    if (!checkIsLogin()){
+        location.replace("./../login.html");
+        return;
+    }
+    if (!checkIsApproved()){
+        $.toastr.info("Please wait for admin accept.")
+       setTimeout(() => {
+           location.replace("./../login.html");
+       }, 200);
+        return;
+    }
 
     // employee daily report
     let specifiedDateElm = document.getElementById('attendanceEmpDate');
