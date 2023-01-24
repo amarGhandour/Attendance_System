@@ -44,7 +44,7 @@
    - [x] If the employee attended, he can register departure any time he wants or
      the system will register departure for his / her after 7 working hours started
      from 8:30 Am to 3:30PM.
-   - [ ] The Employee Can Show the following reports: Daily and monthly reports. You can any other reports for employee Role
+   - [x] The Employee Can Show the following reports: Daily and monthly reports. You can any other reports for employee Role
      <p align="center">
          <img  src="./images/emp_report.PNG">
      </p>  
