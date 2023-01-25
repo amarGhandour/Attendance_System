@@ -83,7 +83,7 @@ registerFormElm.addEventListener('submit', function (e) {
         .then((data) => {
             if (data.length) {
                 document.getElementById('Email').classList.add('is-invalid');
-                document.getElementById('Email').nextElementSibling.innerText = 'email is exist';
+                document.getElementById('Email').nextElementSibling.nextElementSibling.innerText = 'email is exist';
             } else {
                 // collect data from form to send it to server as json.
                 const object = {};
@@ -120,20 +120,24 @@ registerFormElm.addEventListener('submit', function (e) {
                         }).then((user) => {
                             // send email to user contain his username and password
                             sendEmail(user.username, user.password, user.email);
-
+                            console.log("here")
                             $.toastr.info('Please check your Email', {
                                 position: 'right-bottom'
                             });
-                            setTimeout(()=> {
-                                location.replace("./../pages/login.html")
+                            setTimeout(() => {
+                                location.replace("../../pages/login.html")
                             }, 2000);
                             // redirect user to home page. // home page contain button to show daily report and monthly.
                         }).catch((res) => {
                             console.log(res);
-                            console.log('unexpected error occur.  try again')
+                            $.toastr.error('unexpected error occur.  try again', {
+                                position: 'right-bottom'
+                            });
                         })
                     }).catch((res) => {
-                    console.log("unexpected error faild generate password try again");
+                    $.toastr.error('unexpected error occur.  try again', {
+                        position: 'right-bottom'
+                    });
                 });
 
             }

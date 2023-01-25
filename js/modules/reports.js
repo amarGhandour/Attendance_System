@@ -102,12 +102,12 @@ function createRangeEmployeeRow(rowData) {
 }
 
 
- async function getAdminRangeReportData(fromDate, toDate) {
+async function getAdminRangeReportData(fromDate, toDate) {
     let usersAttendances = await getRangeAttendancesForAllUsers(fromDate, toDate);
 
-     const usersMap = new Map();
+    const usersMap = new Map();
 
-     usersAttendances.forEach((item) => {
+    usersAttendances.forEach((item) => {
         if (usersMap.has(item.userId)) {
             let userAttend = usersMap.get(item.userId);
 
@@ -165,7 +165,7 @@ async function getAdminDailyReportData(date) {
     let dailyData = [];
 
     attendances.forEach((attend) => {
-        const item =  {
+        const item = {
             name: `${attend.user.firstName} ${attend.user.lastName}`,
             date: attend.date,
             late: calculateDiffTime("8:30:00", msToTime(attend.in)),
