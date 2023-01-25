@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     //Daily admin Report
+    $("#daily-admin-id").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     document.getElementById("attendanceDate").addEventListener('change', function (e) {
             getAdminDailyReportData(e.target.value)
                 .then((data) => {

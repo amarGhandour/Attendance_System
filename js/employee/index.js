@@ -3,7 +3,7 @@ import {
     getDailyReportDataForAUser,
     getRangeReportDataForAUser
 } from "../modules/reports.js";
-import {checkIsApproved, checkIsLogin} from "../modules/auth";
+import {checkIsApproved, checkIsLogin} from "../modules/auth.js";
 document.addEventListener('DOMContentLoaded', function (){
 
     if (!checkIsLogin()){

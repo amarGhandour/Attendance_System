@@ -45,31 +45,9 @@
       "verified": true,
       "type": 2,
       "id": 6
-    },
-    {
-      "firstName": "Amar",
-      "lastName": "Elghandour",
-      "address": "",
-      "email": "amarghadn3dour89@gmail.com",
-      "age": "34",
-      "username": "*9tgZX0^",
-      "password": "iti43",
-      "verified": false,
-      "type": 2,
-      "id": 7
-    },
-    {
-      "firstName": "Amar",
-      "lastName": "Elghandour",
-      "address": "",
-      "email": "amarghadndd3dour89@gmail.com",
-      "age": "32",
-      "username": "izQw^Bz!",
-      "password": "iti43",
-      "verified": false,
-      "type": 2,
-      "id": 8
     }
+
+
   ],
   "attendances": [
     {
