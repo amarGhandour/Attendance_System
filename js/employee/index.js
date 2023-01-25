@@ -75,7 +75,8 @@ document.addEventListener('DOMContentLoaded', function (){
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     specifiedDateElm.addEventListener('change', function (e){
-        getDailyReportDataForAUser(1, e.target.value)
+        let userId = JSON.parse(localStorage.getItem('user'));
+        getDailyReportDataForAUser(userId, e.target.value)
             .then((data) => {
                 $("#daily-employee-id").DataTable().clear().destroy();
                 if (data){
@@ -107,7 +108,9 @@ document.addEventListener('DOMContentLoaded', function (){
 
     function createAdminRangeTable(){
         if (fromDateElm.value !== '' && toDateElm.value !== ''){
-            getRangeReportDataForAUser(1,fromDateElm.value, toDateElm.value).then((data) => {
+            let userId = JSON.parse(localStorage.getItem('user'));
+
+            getRangeReportDataForAUser(userId,fromDateElm.value, toDateElm.value).then((data) => {
                 $("#range-employee-table").DataTable().clear().destroy();
                 if (data)
                     createRangeEmployeeRow(data);
