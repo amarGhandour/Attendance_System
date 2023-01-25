@@ -17,10 +17,10 @@
       "lastName": "Doe",
       "email": "ahmed@gmail.com",
       "username": "Jhon123456",
-      "password": "iti345",
+      "password": "iti43",
       "type": 1,
       "age": 23,
-      "verified": false
+      "verified": true
     },
     {
       "firstName": "mohamed",
@@ -46,8 +46,6 @@
       "type": 2,
       "id": 6
     }
-
-
   ],
   "attendances": [
     {
@@ -98,6 +96,13 @@
       "date": "2023-01-23",
       "userId": "5",
       "id": 7
+    },
+    {
+      "in": 1674632322806,
+      "out": 1674632327246,
+      "date": "2023-01-25",
+      "userId": "1",
+      "id": 8
     }
   ]
 }

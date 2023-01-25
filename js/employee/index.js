@@ -3,7 +3,8 @@ import {
     getDailyReportDataForAUser,
     getRangeReportDataForAUser
 } from "../modules/reports.js";
-import {checkIsApproved, checkIsLogin} from "../modules/auth.js";
+import {checkIsAdmin, checkIsApproved, checkIsLogin, checkIsSecurity, logout} from "../modules/auth.js";
+import {formatDate} from "../modules/util.js";
 document.addEventListener('DOMContentLoaded', function (){
 
     if (!checkIsLogin()){
@@ -18,15 +19,61 @@ document.addEventListener('DOMContentLoaded', function (){
         return;
     }
 
+    if (!checkIsSecurity() && !checkIsAdmin()){
+        $("#attendance-form-cont").hide();
+        $("#range-employee-cont").hide();
+        $("#daily-employee-cont").show();
+    }else {
+        $("#attendance-form-cont").show();
+        $("#range-employee-cont").hide();
+        $("#daily-employee-cont").hide();
+    }
+
+
+    $("#logout-link > a").click(function (e) {
+        logout();
+        location.replace("../../pages/login.html");
+    })
+
+
+
+    $("#daily-report-link").click(function (e) {
+       $("#range-employee-cont").hide();
+        $("#daily-employee-cont").show();
+        $("#attendance-form-cont").hide();
+    });
+
+    $("#full-report-link").click(function (e) {
+        $("#range-employee-cont").show();
+        $("#daily-employee-cont").hide();
+        $("#attendance-form-cont").hide();
+
+    });
+
+    $('#attendance-form-link').click(function () {
+        $("#range-employee-cont").hide();
+        $("#daily-employee-cont").hide();
+        $("#attendance-form-cont").show();
+    });
+
     // employee daily report
     let specifiedDateElm = document.getElementById('attendanceEmpDate');
 
-    $("#daily-employee-id").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false, paging: false,
-        ordering: false,
-        info: false,filter:false
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
+    getDailyReportDataForAUser(1, formatDate())
+        .then((data) => {
+            specifiedDateElm.value = formatDate();
+            $("#daily-employee-id").DataTable().clear().destroy();
+            if (data){
+                createDailyReportRow(data, "daily-employee-id");
+            }
+            $("#daily-employee-id").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                paging: false,
+                ordering: false,
+                info: false,
+                filter: false
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
     specifiedDateElm.addEventListener('change', function (e){
         getDailyReportDataForAUser(1, e.target.value)
             .then((data) => {

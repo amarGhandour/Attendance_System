@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | DataTables</title>
+    <title>Home</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="./../../css/toastr.css">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -29,16 +31,13 @@
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Home</a>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
-            </li>
         </ul>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Navbar Search -->
             <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" id="logout-link">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     Logout
                 </a>
@@ -74,7 +73,7 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-item">
+                    <li class="nav-item" id="full-report-link">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-columns"></i>
                             <p>
@@ -82,7 +81,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="daily-report-link">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-columns"></i>
                             <p>
@@ -90,6 +89,17 @@
                             </p>
                         </a>
                     </li>
+
+                    <li class="nav-item" id="attendance-form-link">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-columns"></i>
+                            <p>
+                                attendance
+                            </p>
+                        </a>
+                    </li>
+
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -104,12 +114,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>DataTables</h1>
+                        <h1>Reports</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">DataTables</li>
+                            <li class="breadcrumb-item active">Reports</li>
                         </ol>
                     </div>
                 </div>
@@ -120,7 +130,7 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- Daily report for all employees -->
-                <div class="row">
+                <div class="row" id="daily-employee-cont" >
                     <!--  -->
                     <!-- /.card -->
                     <div class="card col-12">
@@ -157,7 +167,7 @@
                 <!-- /.col -->
                 <!-- /.row -->
 
-                <div class="row">
+                <div class="row" id="range-employee-cont" >
                     <!--  -->
                     <!-- /.card -->
                     <div class="card col-12">
@@ -196,9 +206,42 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
-                <!--        </div>-->
                 <!-- /.row -->
+                <div class="row justify-content-center w-100 login-box" id="attendance-form-cont">
+                    <!-- /.login-logo -->
+                    <div class="card card-outline card-primary">
+                        <div class="card-header text-center">
+                            <div class="h1"><b>Attendance</b>System</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="login-box-msg">Enter username</p>
 
+                            <form action="" class="form-attendance needs-validation" method="post" novalidate>
+                                <div class="input-group mb-3">
+                                    <input id="Username" name="username" type="text" class="form-control" placeholder="Username" required>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-user"></span>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        username is required
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </form>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
             </div>
             <!-- /.container-fluid -->
         </section>
@@ -239,10 +282,12 @@
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
-<!-- Page specific script -->
+
+
+<script src="./../../js/toastr.min.js"></script>
 <script type="module" src="./../../js/employee/index.js"></script>
+<script src="../../js/attendacne.js" type="module"></script>
+
 
 
 </body>

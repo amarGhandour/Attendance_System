@@ -21,16 +21,6 @@ setInterval(function(){
 }, 60000);
 
 document.addEventListener('DOMContentLoaded', function () {
-    if (!checkIsLogin()){
-        location.replace("./../login.html");
-        return;
-    }
-
-    if (!checkIsAdmin() && !checkIsSecurity()){
-        $.toastr.error("UnAuthorized");
-        location.replace("./../login.html");
-        return;
-    }
 
     (() => {
         'use strict'

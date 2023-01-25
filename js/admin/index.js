@@ -4,7 +4,7 @@ import {
     getAdminRangeReportData,
 } from "../modules/reports.js";
 import {createPendingRow, getPendingEmployeeData} from "../modules/employeesTables.js";
-import {checkIsAdmin, checkIsLogin} from "../modules/auth.js";
+import {checkIsAdmin, checkIsLogin, logout} from "../modules/auth.js";
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -17,6 +17,34 @@ document.addEventListener('DOMContentLoaded', function () {
         $.toastr.error("UnAuthorized");
         location.replace("./../login.html");
     }
+
+    $("#logout-link > a").click(function (e) {
+        console.log("here")
+        logout();
+        location.replace("../../pages/login.html");
+    })
+
+    $("#daily-report-cont").hide();
+    $("#full-report-cont").hide();
+    $("#pending-employees-cont").show();
+    $("#daily-report-link").click(function (e) {
+        $("#full-report-cont").hide();
+        $("#daily-report-cont").show();
+        $("#pending-employees-cont").hide();
+    });
+
+    $("#full-report-link").click(function (e) {
+        $("#daily-report-cont").hide();
+        $("#full-report-cont").show();
+        $("#pending-employees-cont").hide();
+
+    });
+
+    $('#pending-employees-link').click(function () {
+        $("#daily-report-cont").hide();
+        $("#full-report-cont").hide();
+        $("#pending-employees-cont").show();
+    });
 
     //All pending employees table
     getPendingEmployeeData()

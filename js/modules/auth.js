@@ -14,9 +14,14 @@ function checkIsApproved(){
     return (user && user.verify);
 }
 
+function logout(){
+    localStorage.clear();
+}
+
 export {
     checkIsAdmin,
     checkIsApproved,
     checkIsLogin,
-    checkIsSecurity
+    checkIsSecurity,
+    logout
 }
